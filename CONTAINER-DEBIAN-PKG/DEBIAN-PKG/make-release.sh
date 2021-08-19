@@ -66,8 +66,8 @@ function System_checkEnvironment()
 
 function System_definitions()
 {
-    declare -g dnsPackageRelease
-    declare -g dnsCurrentGitCommit
+    declare -g debPackageRelease
+    declare -g currentGitCommit
 
     declare -g projectName
     declare -g workingFolder
@@ -75,16 +75,16 @@ function System_definitions()
 
     if [ -f DEBIAN-PKG/deb.release ]; then
         # Get program version from the release file.
-        dnsPackageRelease=$(echo $(cat DEBIAN-PKG/deb.release))
+        debPackageRelease=$(echo $(cat DEBIAN-PKG/deb.release))
     else
         echo "Error: deb.release missing."
         echo "Usage: bash DEBIAN-PKG/make-release.sh --action deb"
         exit 1
     fi
 
-    dnsCurrentGitCommit=$(git log --pretty=oneline | head -1 | awk '{print $1}')
+    currentGitCommit=$(git log --pretty=oneline | head -1 | awk '{print $1}')
 
-    projectName="automation-interface-dns_${dnsPackageRelease}_all"
+    projectName="automation-interface-dns_${debPackageRelease}_all"
     workingFolder="/tmp"
     workingFolderPath="${workingFolder}/${projectName}"
 }
@@ -121,8 +121,8 @@ function System_debianFilesSetup()
     # Setting up all the files needed to build the package (DEBIAN folder).
     cp -R DEBIAN-PKG/DEBIAN $workingFolderPath
 
-    sed -i "s/^Version:.*/Version:\ $dnsPackageRelease/g" $workingFolderPath/DEBIAN/control
-    sed -i "s/GITCOMMIT/$dnsCurrentGitCommit/g" $workingFolderPath/DEBIAN/control
+    sed -i "s/^Version:.*/Version:\ $debPackageRelease/g" $workingFolderPath/DEBIAN/control
+    sed -i "s/GITCOMMIT/$currentGitCommit/g" $workingFolderPath/DEBIAN/control
 
     chmod +x $workingFolderPath/DEBIAN/postinst
 }

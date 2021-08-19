@@ -23,7 +23,6 @@ automation-interface-dns-container
 %install
 cp -rfa * %{buildroot}
 
-%files
 %include %{_topdir}/SPECS/files.spec
 
 
