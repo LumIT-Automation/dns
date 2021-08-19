@@ -1,0 +1,7 @@
+Package: automation-interface-dns-container
+Version: RELEASE
+Architecture: all
+Depends: podman, buildah, runc
+Maintainer: LumIT A-Team, automation@lumit.it
+Homepage: https://www.lumit.it
+Description: Automation Interface Consul server agent, container image

@@ -1,0 +1,4 @@
+{
+  "enable_syslog": true,
+  "log_level": "info"
+}
