@@ -1,4 +1,4 @@
-FROM docker.io/amd64/debian
+FROM docker.io/amd64/debian:buster
 EXPOSE 8300/tcp
 EXPOSE 8301/tcp
 EXPOSE 8302/tcp
