@@ -11,7 +11,7 @@ fi
 if [ "$1" -eq "0" ]; then
     printf "\n* Cleanup...\n" 
 
-    if podman ps | awk '{print $2}' | grep -q ^localhost/dns$; then
+    if podman ps | awk '{print $2}' | grep -E '\blocalhost/dns(:|\b)'; then
         podman stop dns
     fi
     
@@ -20,8 +20,8 @@ if [ "$1" -eq "0" ]; then
     fi
     
     # Be sure there is not rubbish around.
-    if podman ps --all | awk '{print $2}' | grep -q ^localhost/dns$; then
-        cIds=$( podman ps --all | awk '$2 == "localhost/dns" { print $1 }' )
+    if podman ps --all | awk '{print $2}' | grep -E '\blocalhost/dns(:|\b)'; then
+        cIds=$( podman ps --all | awk '$2 ~ /^localhost\/dns/ { print $1 }' )
         for id in $cIds; do
             podman rm -f $id
         done
