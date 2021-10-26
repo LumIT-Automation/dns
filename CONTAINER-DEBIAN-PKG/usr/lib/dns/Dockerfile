@@ -1,4 +1,5 @@
 FROM docker.io/amd64/debian:buster
+LABEL AUTOMATION_CONTAINER_IMAGE="dns"
 EXPOSE 8300/tcp
 EXPOSE 8301/tcp
 EXPOSE 8302/tcp

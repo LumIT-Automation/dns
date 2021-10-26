@@ -137,6 +137,7 @@ function System_debianFilesSetup()
     chmod +x $workingFolderPath/DEBIAN/preinst
     chmod +x $workingFolderPath/DEBIAN/postinst
     chmod +x $workingFolderPath/DEBIAN/prerm
+    chmod +x $workingFolderPath/DEBIAN/postrm
 }
 
 
