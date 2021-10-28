@@ -11,8 +11,9 @@ fi
 if [ "$1" -eq "0" ]; then
     printf "\n* Cleanup...\n" 
 
-    if podman ps | awk '{print $2}' | grep -E '\blocalhost/dns(:|\b)'; then
-        podman stop dns
+    if podman ps | awk '{print $2}' | grep -Eq '\blocalhost/dns(:|\b)'; then
+        podman stop -t 5 dns &
+        wait $! # Wait for the shutdown process of the container.
     fi
     
     if podman images | awk '{print $1}' | grep -q ^localhost/dns$; then
