@@ -87,24 +87,30 @@ function System_definitions()
         exit 1
     fi
 
-    serviceProjectName="automation-interface-dns_${debPackageRelease}_all"
+    shortName="dns"
+    debArch="all"
+
+    serviceName="automation-interface-dns"
+    containerName="automation-interface-${shortName}-container"
+    serviceProjectName="${serviceName}_${debPackageRelease}_${debArch}"
     serviceProjectPackage="${workingFolder}/${serviceProjectName}.deb" # inner .deb to be containerized.
 
-    projectName="automation-interface-dns-container_${debPackageRelease}_all"
+    projectName="${containerName}_${debPackageRelease}_${debArch}"
     workingFolderPath="${workingFolder}/${projectName}"
 }
 
 
 function System_cleanup()
 {
-    if [ -n "$workingFolderPath" ]; then
-        if [ -d "$workingFolderPath" ]; then
-            rm -fR "$workingFolderPath"
+    # List of the directories to be deleted.
+    rmDirs="$workingFolderPath ${workingFolder}/${containerName} ${workingFolder}/${serviceProjectName} ${workingFolder}/${projectName}"
+    for dir in $rmDirs; do
+        if [ -d "$dir" ]; then
+            rm -fR "$dir"
         fi
-
-        mkdir $workingFolderPath
-    fi
+    done
 }
+
 
 
 function System_serviceDebCreate()
@@ -116,14 +122,27 @@ function System_serviceDebCreate()
 function System_systemFilesSetup()
 {
     # Setting up system files.
+    mkdir "$workingFolderPath"
+
+    # Setting up system files.
+    ls -l $workingFolderPath
     cp -R usr $workingFolderPath
     cp -R etc $workingFolderPath
-    mv $serviceProjectPackage $workingFolderPath/usr/lib/dns/
+    cp -R var $workingFolderPath
+    ls -l $workingFolderPath
 
-    sed -i "s/PACKAGE/${serviceProjectName}.deb/g" $workingFolderPath/usr/lib/dns/Dockerfile
+    # Cleanup.
+    rm -f $workingFolderPath/var/log/automation/${shortName}/placeholder
 
-    chmod +x $workingFolderPath/usr/bin/dns-container.sh
-    chmod +x $workingFolderPath/usr/lib/dns/bootstrap.sh
+    mv $serviceProjectPackage $workingFolderPath/usr/lib/${shortName}
+    sed -i "s/PACKAGE/${serviceProjectName}.deb/g" $workingFolderPath/usr/lib/${shortName}/Dockerfile
+
+
+    find "$workingFolderPath" -type d -exec chmod 0755 {} \;
+    find "$workingFolderPath" -type f -exec chmod 0644 {} \;
+
+    chmod +x $workingFolderPath/usr/bin/${shortName}-container.sh
+    chmod +x $workingFolderPath/usr/lib/${shortName}/bootstrap.sh
 }
 
 
