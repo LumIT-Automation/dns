@@ -125,11 +125,9 @@ function System_systemFilesSetup()
     mkdir "$workingFolderPath"
 
     # Setting up system files.
-    ls -l $workingFolderPath
     cp -R usr $workingFolderPath
     cp -R etc $workingFolderPath
     cp -R var $workingFolderPath
-    ls -l $workingFolderPath
 
     # Cleanup.
     rm -f $workingFolderPath/var/log/automation/${shortName}/placeholder
