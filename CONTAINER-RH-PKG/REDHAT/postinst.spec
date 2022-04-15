@@ -16,6 +16,9 @@ function containerSetup()
     wallBanner="RPM automation-interface-dns-container post-install configuration message:\n"
     cd /usr/lib/dns
 
+    # Grab the host timezone.
+    timeZone=$(timedatectl show| awk -F'=' '/Timezone/ {print $2}')
+
     # Obtain the ip address of the gateway of the default podman internal networks.
     podmanGw=`podman network inspect podman | grep gateway | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'`
     if [ -z "$gw" ]; then
@@ -31,6 +34,9 @@ function containerSetup()
 
     systemctl start automation-interface-dns-container # (upon installation, container is already run).
     systemctl enable automation-interface-dns-container
+
+    printf "$wallBanner Set the timezone of the container to be the same as the host timezone..." | wall -n
+    podman exec dns bash -c "timedatectl set-timezone $timeZone"
 
     # syslog-ng seems going into a catatonic state while updating a package: restarting the whole thing.
     if dpkg -l | grep automation-interface-log | grep -q ^ii; then
