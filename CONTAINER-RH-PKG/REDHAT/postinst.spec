@@ -27,7 +27,7 @@ function containerSetup()
     fi
 
     # First container run: associate name, bind ports, define init process, ...
-    podman run --name dns -p ${podmanGw}:8300:8300/tcp -p ${podmanGw}:8301:8301/tcp -p ${podmanGw}:8302:8302/tcp -p ${podmanGw}:8500:8500/tcp -p ${podmanGw}:8600:8600/tcp -dt localhost/dns /sbin/init # bind HOST ports.
+    podman run --name dns -p ${podmanGw}:8300:8300/tcp -p ${podmanGw}:8301:8301/tcp -p ${podmanGw}:8302:8302/tcp -p ${podmanGw}:8500:8500/tcp -p ${podmanGw}:8600:8600/tcp -dt localhost/dns /lib/systemd/systemd # bind HOST ports.
 
     printf "$wallBanner Starting Container Service on HOST..." | wall -n
     systemctl daemon-reload
