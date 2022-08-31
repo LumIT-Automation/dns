@@ -1,4 +1,4 @@
-FROM docker.io/amd64/debian:buster
+FROM docker.io/amd64/debian:bullseye
 LABEL AUTOMATION_CONTAINER_IMAGE="dns"
 EXPOSE 8300/tcp
 EXPOSE 8301/tcp

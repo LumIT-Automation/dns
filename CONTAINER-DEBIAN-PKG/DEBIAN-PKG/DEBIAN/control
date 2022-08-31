@@ -1,7 +1,7 @@
 Package: automation-interface-dns
 Version: RELEASE
 Architecture: all
-Depends: systemd (>= 240), consul (>= 1.0), syslog-ng (>= 3.19), unattended-upgrades (>=1.11.2)
+Depends: systemd (>= 240), consul (>= 1.0), syslog-ng (>= 3.19), unattended-upgrades (>=1.11.2), iproute2
 Conflicts: exim4-base
 Maintainer: LumIT A-Team, automation@lumit.it
 Homepage: https://www.lumit.it
