@@ -1,0 +1,5 @@
+#!/bin/bash
+
+groupadd -g 101 consul
+useradd -d /var/lib/consul -s /usr/sbin/nologin -g 101 -u 101 -m consul
+
