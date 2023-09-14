@@ -6,9 +6,10 @@ EXPOSE 8302/tcp
 EXPOSE 8500/tcp
 EXPOSE 8600/tcp
 
+ADD --chown=0:0 hashicorp-archive-keyring.gpg /
+ADD --chown=0:0 hashicorp.list /
+
 ADD PACKAGE /
 ADD bootstrap.sh /
-ADD hashicorp-archive-keyring.gpg /etc/apt/trusted.gpg.d/
-ADD hashicorp.list /etc/apt/sources.list.d/
 
-# RUN ["/bin/bash", "/bootstrap.sh"]
+RUN ["/bin/bash", "/bootstrap.sh"]

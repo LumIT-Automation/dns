@@ -161,7 +161,7 @@ function System_debianFilesSetup()
 function System_debCreate()
 {
     cd $workingFolder
-    dpkg-deb --build $projectName
+    dpkg-deb -Z gzip --build $projectName
 }
 
 # ##################################################################################################################################################

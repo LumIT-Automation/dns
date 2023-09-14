@@ -124,9 +124,7 @@ function System_debianFilesSetup()
     sed -i "s/^Version:.*/Version:\ $debPackageRelease/g" $workingFolderPath/DEBIAN/control
     sed -i "s/GITCOMMIT/$currentGitCommit/g" $workingFolderPath/DEBIAN/control
 
-    chmod +x $workingFolderPath/DEBIAN/preinst
     chmod +x $workingFolderPath/DEBIAN/postinst
-    chmod +x $workingFolderPath/DEBIAN/postrm
 }
 
 
