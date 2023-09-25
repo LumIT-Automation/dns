@@ -107,6 +107,7 @@ function System_systemFilesSetup()
     # Setting up system files.
     cp -R DEBIAN-PKG/etc $workingFolderPath
     cp -R DEBIAN-PKG/usr $workingFolderPath
+    cp -R DEBIAN-PKG/var $workingFolderPath
 
     find $workingFolderPath -type d -exec chmod 0755 {} \;
     find $workingFolderPath -type f -exec chmod 0644 {} \;
@@ -125,6 +126,7 @@ function System_debianFilesSetup()
     sed -i "s/GITCOMMIT/$currentGitCommit/g" $workingFolderPath/DEBIAN/control
 
     chmod +x $workingFolderPath/DEBIAN/postinst
+    chmod +x $workingFolderPath/DEBIAN/preinst
 }
 
 
