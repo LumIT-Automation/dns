@@ -107,7 +107,6 @@ function System_systemFilesSetup()
     # Setting up system files.
     cp -R DEBIAN-PKG/etc $workingFolderPath
     cp -R DEBIAN-PKG/usr $workingFolderPath
-    cp -R DEBIAN-PKG/var $workingFolderPath
 
     find $workingFolderPath -type d -exec chmod 0755 {} \;
     find $workingFolderPath -type f -exec chmod 0644 {} \;
