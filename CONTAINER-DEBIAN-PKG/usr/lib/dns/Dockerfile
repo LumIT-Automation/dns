@@ -5,6 +5,7 @@ EXPOSE 8301/tcp
 EXPOSE 8302/tcp
 EXPOSE 8500/tcp
 EXPOSE 8600/tcp
+STOPSIGNAL 37
 
 ADD --chown=0:0 hashicorp-archive-keyring.gpg /
 ADD --chown=0:0 hashicorp.list /

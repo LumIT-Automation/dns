@@ -5,7 +5,7 @@ function start() {
 }
 
 function stop() {
-    podman stop dns
+    podman stop -t 15 dns
 }
 
 function restart() {
