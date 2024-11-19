@@ -45,7 +45,7 @@ if [ "$1" == "configure" ]; then
     if [ -n "$otherImagesId" ]; then
         echo "Restarting images: $otherImagesId"
         # Calling "restart" directly can be too fast, this avoid the "bind: address already in use" error.
-        podman stop $otherImagesId
+        podman stop -t 15 $otherImagesId
         podman start $otherImagesId
     fi
 fi
